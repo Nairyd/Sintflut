@@ -6,8 +6,8 @@ import time
 import shutil
 
 movecount = 0
-path = str(os.path.dirname(os.path.realpath(__file__))) #clean in current folder
-
+#path = str(os.path.dirname(os.path.realpath(__file__))) #clean in current folder
+path = "."
 def cleanMove(fileName):
     global movecount
     movecount += 1
@@ -15,7 +15,7 @@ def cleanMove(fileName):
     after= path + "\\4 Wochen\\" + fileName
     shutil.move(before,after)
     print(fileName, " moved to ->\n", after)
-#Das ist müll
+
 def cleaningFunction(a, allAtOnce):
     for root, dirs, files in os.walk(path):
         for name in files:
@@ -36,7 +36,7 @@ def cleaningFunction(a, allAtOnce):
             print("\n___________\n")
 
 try:
-    print("Clean here...", path)
+    print("Clean here...", str(os.path.dirname(os.path.realpath(path))))
     os.chdir(path)
     files = len([name for name in os.listdir(path) if os.path.isfile(name)])
     print(files,"  Files to check.")
