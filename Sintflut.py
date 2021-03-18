@@ -6,7 +6,7 @@ import time
 import shutil
 
 movecount = 0
-path = "C:\\test"
+path = str(os.path.dirname(os.path.realpath(__file__))) #clean in current folder
 
 def cleanMove(fileName):
     global movecount
