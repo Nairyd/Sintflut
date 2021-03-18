@@ -5,6 +5,8 @@ import stat
 import time
 import shutil
 
+movecount = 0
+path = "C:\\test"
 
 def cleanMove(fileName):
     global movecount
@@ -12,16 +14,17 @@ def cleanMove(fileName):
     before= path + "\\" + fileName
     after= path + "\\4 Wochen\\" + fileName
     shutil.move(before,after)
-    print(fileName," moved to ->\n", after)
+    print(fileName, " moved to ->\n", after)
 
-def cleaningFunction(a,allAtOnce):
-    for root, dirs, files in os.walk("."):
+def cleaningFunction(a, allAtOnce):
+    for root, dirs, files in os.walk(path):
         for name in files:
             fileStatObj=os.stat(name)
-            accessTime = fileStatObj.st_atime
+            accessTime = fileStatObj.st_mtime
             print(name)
-            print("Last access: ",time.asctime(time.localtime(accessTime)))
-            delayTime=time.time()-accessTime
+            print("Last access: ", time.asctime(time.localtime(accessTime)))
+            delayTime = time.time() - accessTime
+            print(delayTime)
             daysAgo=((delayTime/60)/60)/24
             print("Thats ",int(daysAgo)," days ago.")
             if daysAgo > a :
@@ -30,22 +33,20 @@ def cleaningFunction(a,allAtOnce):
                         cleanMove(name) #chose target
                 elif allAtOnce==True:
                     cleanMove(name)
-            print("\n________________________________________\n")
+            print("\n___________\n")
 
 try:
-    movecount = 0
-    path = str(os.path.dirname(os.path.realpath(__file__)))
-    print("Clean here...",path)
+    print("Clean here...", path)
     os.chdir(path)
-    files = len([name for name in os.listdir('.') if os.path.isfile(name)])
+    files = len([name for name in os.listdir(path) if os.path.isfile(name)])
     print(files,"  Files to check.")
 
     if not os.path.isdir(path + "\\4 Wochen\\"):
         print("Ordner wird erstellt")
         os.mkdir(path + "\\4 Wochen\\")
 
-
     if input("Clean all at once? Or step by step? \t all at once = a\n") == "a":
+        print("\n________________________________________\n")
         cleaningFunction(30,True) # all at once
     cleaningFunction(30,False)     # step by step
 finally:
