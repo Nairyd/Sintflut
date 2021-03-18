@@ -15,7 +15,7 @@ def cleanMove(fileName):
     after= path + "\\4 Wochen\\" + fileName
     shutil.move(before,after)
     print(fileName, " moved to ->\n", after)
-
+#Das ist müll
 def cleaningFunction(a, allAtOnce):
     for root, dirs, files in os.walk(path):
         for name in files:
