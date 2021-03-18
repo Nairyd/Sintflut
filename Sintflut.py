@@ -4,7 +4,6 @@ import os
 import stat
 import time
 import shutil
-import datetime
 
 movecount = 0
 path = "C:\\test"
